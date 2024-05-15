@@ -6,6 +6,6 @@ public class HandTool : BaseTool
 {
     public override void UseTool()
     {
-        base.UseTool();
+
     }
 }

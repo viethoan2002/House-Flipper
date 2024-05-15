@@ -11,7 +11,7 @@ public class PlayerInteract : MonoBehaviour
     [Space(30)]
     [Header("CheckRaycast")]
     [SerializeField] private int interact_layer = 0;
-    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private LayerMask _layerTarget;
 
     private void Awake()
     {
@@ -34,8 +34,15 @@ public class PlayerInteract : MonoBehaviour
 #if UNITY_EDITOR
         Debug.DrawLine(_playerCtrl._camera.position, _playerCtrl._camera.position - (-_playerCtrl._camera.forward) * raycastDistance, Color.red);
 #endif
-        if (Physics.Raycast(_playerCtrl._camera.position, _playerCtrl._camera.forward, out var hitBox, raycastDistance, _layerMask)) 
-            Debug.Log(hitBox.transform.ToString());
+        if (Physics.Raycast(_playerCtrl._camera.position, _playerCtrl._camera.forward, out var hitBox, raycastDistance, _layerTarget))
+            _playerCtrl._playerTools.AddObjectInteract(hitBox.transform.gameObject);
+        else
+            _playerCtrl._playerTools.ClearObjectInteract();
+    }
+
+    public void SetSLayerTarget(LayerMask _layerMask)
+    {
+        _layerTarget = _layerMask;
     }
 
     private void Reset()

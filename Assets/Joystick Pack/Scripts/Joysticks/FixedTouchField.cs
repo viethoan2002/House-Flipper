@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
     [HideInInspector]
     public Vector2 TouchDist;
@@ -13,7 +14,11 @@ public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     protected int PointerId;
     [HideInInspector]
     public bool isPressed;
-    public bool is_click_event;
+
+    [Space(30)]
+    [Header("Click Event")]
+    [SerializeField] private bool _isClick;
+    public static event Action FixedOnClick;
 
     void Update()
     {
@@ -30,25 +35,20 @@ public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                 PointerOld = Input.mousePosition;
             }
             
-            
+            if(TouchDist.magnitude > 0)
+            {
+                _isClick = false;
+            }
         }
         else
         {
             TouchDist = new Vector2();
-            
-            if (is_click_event)
-            {
-                is_click_event = false;
-            }
         }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (is_click_event)
-        {
-            return;
-        }
+        _isClick = true;
         isPressed = true;
         PointerId = eventData.pointerId;
         PointerOld = eventData.position;
@@ -59,5 +59,12 @@ public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         isPressed = false;
     }
-    
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(_isClick)
+        {
+            FixedOnClick?.Invoke();
+        }
+    }
 }

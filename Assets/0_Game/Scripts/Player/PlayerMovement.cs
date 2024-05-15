@@ -80,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
         _controller.Move(move * speed * Time.deltaTime);
 
         _controller.Move(-_playerCtrl._player.up * gravity * Time.deltaTime);
+
+        _playerCtrl._playerAnimator.UpdateAnmByVelocity(move);
     }
 
     public void ActiveMovement(bool _active)
