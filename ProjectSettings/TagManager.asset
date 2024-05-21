@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ladder
   layers:
   - Default
   - TransparentFX
@@ -12,18 +13,18 @@ TagManager:
   - Water
   - UI
   - Tool
+  - Ground
+  - Wall
+  - Wall_Slot
+  - Wall_Preview
+  - Wall_Bonus
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - CellPos
+  - Dirt
+  - Furitures
   - 
   - 
   - 
