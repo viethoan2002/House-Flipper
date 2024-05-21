@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
     [Header("Transfrom")]
     public Transform _player;
     public Transform _camera;
@@ -18,6 +19,11 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if(PlayerController.instance == null)
+        {
+            PlayerController.instance = this;
+        }
+
         LoadComponent();
     }
 

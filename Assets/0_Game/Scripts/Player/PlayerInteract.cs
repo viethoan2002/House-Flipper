@@ -35,12 +35,15 @@ public class PlayerInteract : MonoBehaviour
         Debug.DrawLine(_playerCtrl._camera.position, _playerCtrl._camera.position - (-_playerCtrl._camera.forward) * raycastDistance, Color.red);
 #endif
         if (Physics.Raycast(_playerCtrl._camera.position, _playerCtrl._camera.forward, out var hitBox, raycastDistance, _layerTarget))
+        {
             _playerCtrl._playerTools.AddObjectInteract(hitBox.transform.gameObject);
+            _playerCtrl._playerTools.AddPointRay(hitBox.point,hitBox.transform.gameObject);
+        }
         else
             _playerCtrl._playerTools.ClearObjectInteract();
     }
 
-    public void SetSLayerTarget(LayerMask _layerMask)
+    public void SetLayerTarget(LayerMask _layerMask)
     {
         _layerTarget = _layerMask;
     }

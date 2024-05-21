@@ -21,7 +21,7 @@ public class MopTool : BaseTool
 
     private void MoveUp()
     {
-        transform.DOLocalMove(new Vector3(0, 0.5F, 0), .5f).OnComplete(() =>
+        transform.DOLocalMove(new Vector3(0, 0.14F, 0), .5f).OnComplete(() =>
         {
             _animator.CrossFade("Use", 0.5f);
         });

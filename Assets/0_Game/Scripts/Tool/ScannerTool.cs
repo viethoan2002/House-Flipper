@@ -8,11 +8,11 @@ public class ScannerTool : BaseTool
 
     [Space(20)]
     [Header("Furnitures")]
-    [SerializeField] private Furnitures _curFuritures;
+    [SerializeField] private Furnitures_Price _curPrice;
 
     public override void UseTool()
     {
-        if (_curFuritures == null || !_curFuritures.GetCanSell())
+        if (_curPrice == null || !_curPrice.GetCanSell())
             return;
 
         UIController.Instance._handleUIManager._handleLoading.HandleFill(0, 3);
@@ -20,15 +20,17 @@ public class ScannerTool : BaseTool
 
     public override void AddInteractObject(GameObject _interactObj)
     {
-        var _fur = _interactObj.GetComponent<Furnitures>();
+        base.AddInteractObject(_interactObj);
+
+        var _fur = _interactObj.GetComponent<Furnitures_Price>();
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
 
-        if (_fur == _curFuritures)
+        if (_fur == _curPrice)
             return;
 
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
-        _curFuritures = _fur;
-        _scannerCanvas.SetPaymentTxt(_curFuritures.GetPrice());
+        _curPrice = _fur;
+        _scannerCanvas.SetPaymentTxt(_curPrice.GetPrice());
     }
 
     public override void ClearObjectInteract()
@@ -37,9 +39,9 @@ public class ScannerTool : BaseTool
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
         _scannerCanvas.ClearPaymentTxt();
 
-        if (_curFuritures != null)
+        if (_curPrice != null)
         {
-            _curFuritures = null;
+            _curPrice = null;
         }
     }
 
@@ -47,7 +49,7 @@ public class ScannerTool : BaseTool
     {
         base.CompeleteUse();
 
-        _curFuritures.Sell();
-        _curFuritures = null;
+        _curPrice.Sell();
+        _curPrice = null;
     }
 }

@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _canMove = true;
     [SerializeField] private float speed = 25;
     [SerializeField] private float gravity = 9.81f;
+    [SerializeField] private float _horizontal, _vertical;
 
     private void Awake()
     {
@@ -65,17 +66,22 @@ public class PlayerMovement : MonoBehaviour
         if(!_canMove)
             return;
 
-#if UNITY_EDITOR
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-#endif
-        if (joystick.Direction != Vector2.zero)
-        {
-            x = joystick.Horizontal;
-            y = joystick.Vertical;
-        }
 
-        Vector3 move = transform.right * x + transform.forward * y;
+        _horizontal = Input.GetAxis("Horizontal");
+        _vertical = Input.GetAxis("Vertical");
+
+        //if (joystick.Direction != Vector2.zero)
+        //{
+        //    _horizontal = joystick.Horizontal;
+        //    _vertical = joystick.Vertical;
+        //}
+        //else
+        //{
+        //    _horizontal = 0;
+        //    _vertical = 0;
+        //}
+
+        Vector3 move = transform.right * _horizontal + transform.forward * _vertical;
 
         _controller.Move(move * speed * Time.deltaTime);
 

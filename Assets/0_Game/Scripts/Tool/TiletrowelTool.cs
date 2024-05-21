@@ -1,0 +1,70 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TiletrowelTool : BaseTool
+{
+    [SerializeField] private ItemWallFinishes _curItemTiles;
+    [SerializeField] private FloorTiles _curFloorTiles;
+
+    [SerializeField] private bool _isBrick;
+
+    public override void UseTool()
+    {
+        if (_isBrick || _curFloorTiles == null || _curFloorTiles.CheckTiles(_curItemTiles))
+            return;
+
+        UIController.Instance._handleUIManager._handleLoading.HandleFill(0, 0.5f);
+        _isBrick = true;
+    }
+
+    public override void AddPointRay(Vector3 _point, GameObject _contruction)
+    {
+        if (_isBrick)
+            return;
+
+        base.AddPointRay(_point, _contruction);
+
+        var _newTiles = FloorManager.instance.GetTilesFloor(_point);
+        if (_point.y > PlayerController.instance.transform.position.y)
+        {
+            _newTiles = FloorManager.instance.GetTilesCeiling(_point);
+        }
+
+        if (_newTiles == _curFloorTiles)
+            return;
+
+        ClearObjectInteract();
+        _curFloorTiles = _newTiles;
+        _curFloorTiles.ActiveOutline(true);
+    }
+
+    public override void CompeleteUse()
+    {
+        base.CompeleteUse();
+        _isBrick = false;
+        _curFloorTiles.SetTiles(_curItemTiles);
+    }
+
+    public override void ClearObjectInteract()
+    {
+        if (_isBrick)
+            return;
+
+        base.ClearObjectInteract();
+
+        if(_curFloorTiles != null)
+            _curFloorTiles.ActiveOutline(false);
+        _curFloorTiles = null;
+    }
+
+    public override void HideObject()
+    {
+        base.HideObject();
+
+        if (_curFloorTiles != null)
+            _curFloorTiles.ActiveOutline(false);
+        _curFloorTiles = null;
+        _curItemTiles = null;
+    }
+}

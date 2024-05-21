@@ -15,12 +15,12 @@ public class PlayerTools : MonoBehaviour
 
     private void OnEnable()
     {
-        ToolBtnManager.changeTool += ChangeTool;
+        ToolUIManager.changeTool += ChangeTool;
     }
 
     private void OnDisable()
     {
-        ToolBtnManager.changeTool -= ChangeTool;
+        ToolUIManager.changeTool -= ChangeTool;
     }
 
     private void Start()
@@ -36,7 +36,7 @@ public class PlayerTools : MonoBehaviour
     private void SetUpTool()
     {
         _curTool = toolList[0];
-        _playerCtrl._playerInteract.SetSLayerTarget(_curTool.GetLayerTarget());
+        _playerCtrl._playerInteract.SetLayerTarget(_curTool.GetLayerTarget());
 
         for (int i = 1; i < toolList.Count; i++)
         {
@@ -54,12 +54,17 @@ public class PlayerTools : MonoBehaviour
 
         _curTool = toolList[_index];
         _curTool.ShowObject();
-        _playerCtrl._playerInteract.SetSLayerTarget(_curTool.GetLayerTarget());
+        _playerCtrl._playerInteract.SetLayerTarget(_curTool.GetLayerTarget());
     }
 
     public void AddObjectInteract(GameObject _obj)
     {
         _curTool.AddInteractObject(_obj);
+    }
+
+    public void AddPointRay(Vector3 _point,GameObject _obj)
+    {
+        _curTool.AddPointRay(_point, _obj);
     }
 
     public void ClearObjectInteract()

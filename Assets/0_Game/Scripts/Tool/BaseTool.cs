@@ -28,11 +28,21 @@ public class BaseTool : MonoBehaviour
 
     private void OnEnable()
     {
+        AddEventAction();
+    }
+
+    public virtual void AddEventAction()
+    {
         FixedTouchField.FixedOnClick += UseTool;
         HandleLoading._completeLoading += CompeleteUse;
     }
 
     private void OnDisable()
+    {
+       RemoveEventAction();
+    }
+
+    public virtual void RemoveEventAction()
     {
         FixedTouchField.FixedOnClick -= UseTool;
         HandleLoading._completeLoading -= CompeleteUse;
@@ -56,14 +66,14 @@ public class BaseTool : MonoBehaviour
 
     }
 
-    public void HideObject()
+    public virtual void HideObject()
     {
         gameObject.SetActive(false);
         gameObject.transform.localPosition = new Vector3(0, -0.5f, 0);
         _model.transform.localPosition = _originModelPos;
     }
 
-    public void ShowObject()
+    public virtual void ShowObject()
     {
         gameObject.SetActive(true);
         gameObject.transform.DOLocalMove(Vector3.zero, 0.5f);
@@ -76,12 +86,14 @@ public class BaseTool : MonoBehaviour
 
     public virtual void AddInteractObject(GameObject _interactObj)
     {
-
+        UIController.Instance._handleUIManager._handleNotification.ActiveNotifiTap(true);
     }
+
+    public virtual void AddPointRay(Vector3 _point, GameObject _contruction) { }
 
     public virtual void ClearObjectInteract()
     {
-
+        UIController.Instance._handleUIManager._handleNotification.ActiveNotifiTap(false);
     }
 
     private void Reset()

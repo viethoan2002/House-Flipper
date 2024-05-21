@@ -9,6 +9,9 @@ public class UIController : MonoBehaviour
     [Space(30)]
     [Header("UI Component")]
     public HandleUIManager _handleUIManager;
+    public ToolUIManager _toolUIManager;
+    public ReplaceUIManager _replaceUIManager;
+    public ShopManager _shopManager;
 
     private void Awake()
     {
@@ -16,5 +19,15 @@ public class UIController : MonoBehaviour
         {
             UIController.Instance = this;
         }
+    }
+
+    public void Test()
+    {
+        Debug.Log("Click");
+    }
+
+    public void TargetPaints()
+    {
+
     }
 }

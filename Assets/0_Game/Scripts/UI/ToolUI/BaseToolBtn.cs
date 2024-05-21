@@ -11,6 +11,9 @@ public class BaseToolBtn : MonoBehaviour
     [SerializeField] private Button _button;
     [SerializeField] private int _indexTool;
 
+    [SerializeField] private bool _devdone;
+    [SerializeField] public GameObject _targetButton;
+
     private void Awake()
     {
         LoadComponent();
@@ -25,14 +28,20 @@ public class BaseToolBtn : MonoBehaviour
     {
         _button.onClick.AddListener(() =>
         {
-            _action?.Invoke();
+            if(_devdone)
+                _action?.Invoke();
 
+            if (_targetButton != null)
+                _targetButton.SetActive(true);
         });
     }
 
     public void MoveToTarget(Transform target,float _time)
     {
-        transform.DOLocalMove(target.localPosition, _time);
+
+        transform.DOLocalMove(target.localPosition, _time).OnComplete(() =>
+        {
+        });
     }
 
     public void MoveToLocal(float _time)
