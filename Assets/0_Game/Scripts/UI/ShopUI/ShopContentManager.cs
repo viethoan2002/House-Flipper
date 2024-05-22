@@ -3,10 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopContentManager : MonoBehaviour
+public class ShopContentManager : UIAnimation
 {
     [SerializeField] private List<ItemShopUI> _items=new List<ItemShopUI>();
     [SerializeField] private DataController _curDataController;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            MoveToOrigin();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            MoveToTarget();
+        }
+    }
 
     public void SetContentByString(string _type)
     {

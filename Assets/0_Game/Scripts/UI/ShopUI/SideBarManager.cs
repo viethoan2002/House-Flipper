@@ -3,9 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SideBarManager : MonoBehaviour
+public class SideBarManager : UIAnimation
 {
     [SerializeField] private List<ItemSideUI> _itemSideUi = new List<ItemSideUI>();
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            MoveToOrigin();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            MoveToTarget();
+        }
+    }
+
     //Backyard=0,
     //Lights=1,
     //WallFinishes=2,

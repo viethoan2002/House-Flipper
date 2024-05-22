@@ -77,7 +77,7 @@ public class HandTool : BaseTool
 
     public override void ClearObjectInteract()
     {
-        if (_fixObject)
+        if (_fixObject || _isReplace)
             return;
 
         _curPlace = null;

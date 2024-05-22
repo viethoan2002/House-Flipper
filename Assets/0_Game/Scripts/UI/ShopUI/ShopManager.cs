@@ -12,8 +12,16 @@ public class ShopManager : MonoBehaviour
 
     public void BackToMenuShop()
     {
-        _MENU.SetActive(true);
         _ShopContent.SetActive(false);
+        _MENU.SetActive(true);
+    }
+
+    public void BackToShopContent()
+    {
+        _MENU.SetActive(false);
+        _ShopContent.SetActive(true);
+        _sideBarManager.MoveToTarget();
+        _shopContentManager.MoveToTarget();
     }
 
     public void CloseShop()

@@ -36,7 +36,8 @@ public class Furnitures_Place : MonoBehaviour
         //Vector3 _direction = _pos - transform.position;
         //_direction = new Vector3(_direction.x, transform.position.y, _direction.z);
         //_rigidbody.velocity = _direction * (_direction.magnitude / _duration * Time.deltaTime);
-        transform.DOMove(_pos, 0.25f);
+        //transform.DOMove(_pos, 0.25f);
+        transform.position = _pos;
     }
 
     public void EnableCollision(bool _enable)

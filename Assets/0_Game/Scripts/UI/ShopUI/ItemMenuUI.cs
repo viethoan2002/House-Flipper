@@ -24,12 +24,11 @@ public class ItemMenuUI : MonoBehaviour
 
     public void ActionClick()
     {
-        UIController.Instance._shopManager._MENU.SetActive(false);
-        UIController.Instance._shopManager._ShopContent.SetActive(true);
-
         UIController.Instance._shopManager._sideBarManager.SetType((int)_typeMenu);
         UIController.Instance._shopManager._shopContentManager.SetType((int)_typeMenu); 
         UIController.Instance._shopManager._shopContentManager.SetType((int)_typeMenu);
+
+        UIController.Instance._shopManager.BackToShopContent();
     }
 
     private void Reset()
