@@ -34,8 +34,8 @@ public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                 TouchDist = new Vector2(Input.mousePosition.x, Input.mousePosition.y) - PointerOld;
                 PointerOld = Input.mousePosition;
             }
-            
-            if(TouchDist.magnitude > 0)
+
+            if (TouchDist.magnitude > 0)
             {
                 _isClick = false;
             }

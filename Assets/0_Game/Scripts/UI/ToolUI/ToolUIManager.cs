@@ -50,7 +50,7 @@ public class ToolUIManager : BaseUIManager
 
                         if (_btn._targetButton != null)
                         {
-                            _btn._targetButton.SetActive(true);
+                            _btn._targetButton.gameObject.SetActive(true);
                         }
 
                         if (_btn != btn)
@@ -59,7 +59,7 @@ public class ToolUIManager : BaseUIManager
                         }
 
                         if(_btn._targetButton!=null)
-                            _btn._targetButton.SetActive(false);
+                            _btn._targetButton.gameObject.SetActive(false);
                     }
                 }         
             });

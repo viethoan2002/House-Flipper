@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Furnitures_Price : MonoBehaviour
 {
-    [SerializeField] private int _price;
+    [SerializeField] private BaseItem _curItem;
     [SerializeField] private bool _canSell;
+
+    public BaseItem GetBaseItem()
+    {
+        return _curItem;
+    }
 
     public int GetPrice()
     {
-        return _price;
+        return _curItem._price;
     }
 
     public void Sell()

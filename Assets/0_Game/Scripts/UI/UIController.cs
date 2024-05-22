@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     public ToolUIManager _toolUIManager;
     public ReplaceUIManager _replaceUIManager;
     public ShopManager _shopManager;
+    public PlayerStatUIManager _playerStatUIManager;
 
     private void Awake()
     {
@@ -29,5 +30,17 @@ public class UIController : MonoBehaviour
     public void TargetPaints()
     {
 
+    }
+
+    public void OpenShop()
+    {
+        _shopManager.gameObject.SetActive(true);
+        _shopManager._ShopContent.SetActive(false);
+        _shopManager._MENU.SetActive(true);
+    }
+
+    public void CloseShop()
+    {
+        _shopManager.gameObject.SetActive(false);
     }
 }

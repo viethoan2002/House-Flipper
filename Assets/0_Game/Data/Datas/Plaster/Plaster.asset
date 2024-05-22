@@ -16,5 +16,6 @@ MonoBehaviour:
   _price: 300
   _name: Gladys
   _isLock: 0
+  _prefObj: {fileID: 574113549619873494, guid: 8022fe33b0aa20b41877f1cdc6c2ce2e, type: 3}
   _texture: {fileID: 0}
   _type: 2

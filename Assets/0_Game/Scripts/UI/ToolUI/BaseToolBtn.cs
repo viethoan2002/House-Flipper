@@ -12,7 +12,7 @@ public class BaseToolBtn : MonoBehaviour
     [SerializeField] private int _indexTool;
 
     [SerializeField] private bool _devdone;
-    [SerializeField] public GameObject _targetButton;
+    [SerializeField] public TargetShopBtn _targetButton;
 
     private void Awake()
     {
@@ -32,7 +32,11 @@ public class BaseToolBtn : MonoBehaviour
                 _action?.Invoke();
 
             if (_targetButton != null)
-                _targetButton.SetActive(true);
+            {
+                _targetButton.SetContentShop(_indexTool);
+                _targetButton.gameObject.SetActive(true);
+            }
+
         });
     }
 

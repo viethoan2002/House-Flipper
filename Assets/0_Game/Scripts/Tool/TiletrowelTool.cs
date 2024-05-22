@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TiletrowelTool : BaseTool
@@ -24,6 +25,7 @@ public class TiletrowelTool : BaseTool
             return;
 
         base.AddPointRay(_point, _contruction);
+        UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
 
         var _newTiles = FloorManager.instance.GetTilesFloor(_point);
         if (_point.y > PlayerController.instance.transform.position.y)
@@ -46,6 +48,13 @@ public class TiletrowelTool : BaseTool
         _curFloorTiles.SetTiles(_curItemTiles);
     }
 
+    public override void AddItem(BaseItem _item)
+    {
+        base.AddItem(_item);
+
+        _curItemTiles=(ItemWallFinishes)_item;
+    }
+
     public override void ClearObjectInteract()
     {
         if (_isBrick)
@@ -65,6 +74,5 @@ public class TiletrowelTool : BaseTool
         if (_curFloorTiles != null)
             _curFloorTiles.ActiveOutline(false);
         _curFloorTiles = null;
-        _curItemTiles = null;
     }
 }

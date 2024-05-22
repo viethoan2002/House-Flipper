@@ -48,7 +48,7 @@ public class ScannerTool : BaseTool
     public override void CompeleteUse()
     {
         base.CompeleteUse();
-
+        PlayerController.instance._playerStats.AddMoney((int)(_curPrice.GetBaseItem()._price * 0.75f));
         _curPrice.Sell();
         _curPrice = null;
     }

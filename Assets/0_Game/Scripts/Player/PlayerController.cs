@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public PlayerInteract _playerInteract;
     public PlayerTools _playerTools;
     public PlayerAnimator _playerAnimator;
+    public PlayerStats _playerStats;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         _playerInteract = GetComponent<PlayerInteract>();
         _playerTools = GetComponent<PlayerTools>();
         _playerAnimator = GetComponent<PlayerAnimator>();
+        _playerStats = GetComponent<PlayerStats>();
     }
 
     private void Reset()

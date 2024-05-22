@@ -10,7 +10,7 @@ public class ScannerTool_Canvas : MonoBehaviour
     public void SetPaymentTxt(int _amount)
     {
         _paymentTxt.fontSize = 125;
-        _paymentTxt.text = "Sell for \n" + _amount.ToString();
+        _paymentTxt.text = "Sell for \n" + ((int)_amount * 0.75f).ToString();
     }
 
     public void ClearPaymentTxt()

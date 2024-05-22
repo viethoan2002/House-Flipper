@@ -5,9 +5,10 @@ using UnityEngine;
 public class BaseItem : ScriptableObject
 {
     public Sprite _icon;
-    public float _price;
+    public int _price;
     public string _name;
     public bool _isLock;
+    public GameObject _prefObj;
 
     public virtual string GetTypeString()
     {

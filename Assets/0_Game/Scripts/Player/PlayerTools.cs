@@ -7,6 +7,7 @@ public class PlayerTools : MonoBehaviour
     [SerializeField] private PlayerController _playerCtrl;
     [SerializeField] private BaseTool _curTool;
     [SerializeField] private List<BaseTool> toolList = new();
+    [SerializeField] private BaseItem _curItem;
 
     private void Awake()
     {
@@ -65,6 +66,37 @@ public class PlayerTools : MonoBehaviour
     public void AddPointRay(Vector3 _point,GameObject _obj)
     {
         _curTool.AddPointRay(_point, _obj);
+    }
+
+    public void AddBaseItem(BaseItem _item)
+    {
+        if(_item is ItemWallFinishes)
+        {
+            ItemWallFinishes _tiles = (ItemWallFinishes)_item;
+
+            if (_tiles._type == WallFinishes.Tiles)
+            {
+                ChangeTool(4);
+                _curTool.AddItem(_item);
+            }
+            else if (_tiles._type == WallFinishes.Paints)
+            {
+
+            }
+            else
+            {
+                ChangeTool(0);
+                
+                _playerCtrl._playerStats.RemoveMoney(_item._price);
+                HandTool _handTool=(HandTool)_curTool;
+                _handTool.ReplaceObj(Instantiate(_tiles._prefObj));
+            }
+
+        }
+        else
+        {
+            UIController.Instance._replaceUIManager.gameObject.SetActive(true);
+        }
     }
 
     public void ClearObjectInteract()

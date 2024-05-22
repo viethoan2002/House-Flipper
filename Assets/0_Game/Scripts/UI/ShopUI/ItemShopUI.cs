@@ -5,14 +5,25 @@ using UnityEngine.UI;
 
 public class ItemShopUI : MonoBehaviour
 {
+    [SerializeField] private Button _curButton;
     [SerializeField] private BaseItem _curItem;
     [SerializeField] private Text _nameTxt, _typeTxt, _priceTxt;
     [SerializeField] private GameObject _lock, _price;
 
-    [Button]
-    public void Test()
+    private void Awake()
     {
-        AddItem(_curItem);
+        _curButton = GetComponent<Button>();
+        _curButton.onClick.AddListener(ActionClick);
+    }
+
+    public void ActionClick()
+    {
+        if (PlayerController.instance._playerStats.CheckMoney(_curItem._price))
+        {
+            PlayerController.instance._playerTools.AddBaseItem(_curItem);
+
+            UIController.Instance._shopManager.CloseShop();
+        }
     }
 
     public void AddItem(BaseItem _item)

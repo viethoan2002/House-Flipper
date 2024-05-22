@@ -9,6 +9,7 @@ public class HandTool : BaseTool
     [SerializeField] private Vector3 _curPoint;
 
     [SerializeField] private bool _isReplace;
+    [SerializeField] private bool _fixObject;
 
     #region Add Event Action
     public override void AddEventAction()
@@ -76,7 +77,10 @@ public class HandTool : BaseTool
 
     public override void ClearObjectInteract()
     {
+        if (_fixObject)
+            return;
 
+        _curPlace = null;
     }
 
     public void ClearObjectRepalce()
@@ -87,6 +91,7 @@ public class HandTool : BaseTool
         _isReplace = false;
         _curPlace = null;
         _curPoint = Vector3.zero;
+        _fixObject = false;
         PlayerController.instance._playerInteract.SetLayerTarget(GetLayerTarget());
     }
 
@@ -102,6 +107,15 @@ public class HandTool : BaseTool
         UIController.Instance._replaceUIManager.ShowUI();
 
         PlayerController.instance._playerInteract.SetLayerTarget(_curPlace.GetLayerReplace());
+    }
+
+    public void ReplaceObj(GameObject _obj)
+    {
+        var _replaceFur=_obj.GetComponent<Furnitures_Place>();
+        _curPlace = _replaceFur;
+        CompeleteUse();
+
+        _fixObject = true;
     }
 
     public override void AddPointRay(Vector3 _point,GameObject _contruction)

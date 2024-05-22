@@ -18,6 +18,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float xRotation = 0;
     [SerializeField] private bool _canRotate = true;
 
+    private float lookRotationX;
+    private float lookRotationY;
+    [SerializeField] private float LookSpeed = 0.5f;
+    [SerializeField][Range(0, 1)] private float sensitivity;
+    [SerializeField] float MaxRotationX = 60.0f;
+    [SerializeField] float MinRotationX = -45.0f;
+
     [Space(30)]
     [Header("Movement")]
     [SerializeField] private CharacterController _controller;
@@ -51,14 +58,23 @@ public class PlayerMovement : MonoBehaviour
         if(!touchField.isPressed)
             return;
 
-        float mouseX = touchField.TouchDist.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = touchField.TouchDist.y * mouseSensitivity * Time.deltaTime;
+        //float mouseX = touchField.TouchDist.x * mouseSensitivity * Time.deltaTime;
+        //float mouseY = touchField.TouchDist.y * mouseSensitivity * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
+        //xRotation -= mouseY;
+        //xRotation = Mathf.Clamp(xRotation, -90, 90);
 
-        _playerCtrl._camera.transform.localRotation=Quaternion.Euler(xRotation, 0, 0);
-        _playerCtrl._player.transform.Rotate(Vector3.up * mouseX);
+        //_playerCtrl._camera.transform.localRotation=Quaternion.Euler(xRotation, 0, 0);
+        //_playerCtrl._player.transform.Rotate(Vector3.up * mouseX);
+
+        var lookInput = touchField.TouchDist * LookSpeed;
+
+        lookRotationY += lookInput.x * sensitivity;
+        transform.localEulerAngles = new Vector3(0, lookRotationY, 0);
+
+        lookRotationX += lookInput.y * sensitivity;
+        lookRotationX = Mathf.Clamp(lookRotationX, MinRotationX, MaxRotationX);
+        _playerCtrl._camera.transform.localEulerAngles = new Vector3(-lookRotationX, 0, 0);
     }
 
     private void Move()
@@ -67,19 +83,19 @@ public class PlayerMovement : MonoBehaviour
             return;
 
 
-        _horizontal = Input.GetAxis("Horizontal");
-        _vertical = Input.GetAxis("Vertical");
+        //_horizontal = Input.GetAxis("Horizontal");
+        //_vertical = Input.GetAxis("Vertical");
 
-        //if (joystick.Direction != Vector2.zero)
-        //{
-        //    _horizontal = joystick.Horizontal;
-        //    _vertical = joystick.Vertical;
-        //}
-        //else
-        //{
-        //    _horizontal = 0;
-        //    _vertical = 0;
-        //}
+        if (joystick.Direction != Vector2.zero)
+        {
+            _horizontal = joystick.Horizontal;
+            _vertical = joystick.Vertical;
+        }
+        else
+        {
+            _horizontal = 0;
+            _vertical = 0;
+        }
 
         Vector3 move = transform.right * _horizontal + transform.forward * _vertical;
 

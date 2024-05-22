@@ -96,6 +96,11 @@ public class BaseTool : MonoBehaviour
         UIController.Instance._handleUIManager._handleNotification.ActiveNotifiTap(false);
     }
 
+    public virtual void AddItem(BaseItem _item)
+    {
+
+    }
+
     private void Reset()
     {
         LoadComponent();

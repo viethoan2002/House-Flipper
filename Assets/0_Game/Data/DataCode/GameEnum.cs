@@ -3,6 +3,12 @@ public class GameEnum
     
 }
 
+public enum Item_type
+{
+    Sprite,
+    GameObject
+}
+
 public enum Menu_Type
 {
     Backyard=0,

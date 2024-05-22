@@ -32,10 +32,10 @@ public class Wall_Preview : MonoBehaviour
     public void Preview(Transform _trans)
     {
         ActivePreview(true);
-        transform.DOMove(_trans.transform.position, 0.25f);
-        transform.DORotateQuaternion(_trans.transform.rotation, 0.25f);
-        //transform.position = _trans.transform.position;
-        //transform.rotation = _trans.transform.rotation;
+        //transform.DOMove(_trans.transform.position, 0.25f);
+        //transform.DORotateQuaternion(_trans.transform.rotation, 0.25f);
+        transform.position = _trans.transform.position;
+        transform.rotation = _trans.transform.rotation;
     }
 
     private void UpDatePreviewByMaterial(bool _en)
