@@ -16,7 +16,9 @@ public class TiletrowelTool : BaseTool
             return;
 
         UIController.Instance._handleUIManager._handleLoading.HandleFill(0, 0.5f);
+        _animator.CrossFade("Use", 0);
         _isBrick = true;
+        PlayerController.instance._playerStats.RemoveMoney(_curItemTiles._price);
     }
 
     public override void AddPointRay(Vector3 _point, GameObject _contruction)
@@ -46,6 +48,7 @@ public class TiletrowelTool : BaseTool
         base.CompeleteUse();
         _isBrick = false;
         _curFloorTiles.SetTiles(_curItemTiles);
+        _animator.CrossFade("Idle", 0);
     }
 
     public override void AddItem(BaseItem _item)

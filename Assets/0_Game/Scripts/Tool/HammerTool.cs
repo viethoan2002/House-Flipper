@@ -54,6 +54,10 @@ public class HammerTool : BaseTool
 
         _curWall.ActiveOutline(false);
         _curWall= null ;
+        _isDestroying= false;
+
+        _animator.CrossFade("Idle", 0.25f);
+        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
     }
 
     public override void CompeleteUse()
@@ -63,5 +67,6 @@ public class HammerTool : BaseTool
         Destroy(_curWall.gameObject);
         _curWall = null;
         _isDestroying = false;
+        _animator.CrossFade("Idle", 0f);
     }
 }

@@ -3,6 +3,13 @@ public class GameEnum
     
 }
 
+public enum Place_Type
+{
+    onFloor,
+    onCeiling,
+    onWall
+}
+
 public enum Item_type
 {
     Sprite,
@@ -47,7 +54,7 @@ public enum Door
 public enum Furniture
 {
     Beds,
-    Sofas,
+    Chair,
     Tables,
     Cabinets,
 }

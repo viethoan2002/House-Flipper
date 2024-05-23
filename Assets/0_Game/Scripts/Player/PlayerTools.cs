@@ -95,7 +95,10 @@ public class PlayerTools : MonoBehaviour
         }
         else
         {
-            UIController.Instance._replaceUIManager.gameObject.SetActive(true);
+            ChangeTool(0);
+
+            HandTool _handTool = (HandTool)_curTool;
+            _handTool.ReplaceObj(Instantiate(_item._prefObj));
         }
     }
 

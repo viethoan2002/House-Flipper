@@ -24,11 +24,12 @@ public class Plasteringtrowel : BaseTool
         }
         else
         {
-            if(_curWallCracks != null)
+            if(_curWallCracks != null && _curWallCracks.GetFillAmount()<1)
             {
                 _curWallCracks.SetCanFill(true);
-                _curWallCracks.FillWallCrack(2);
-                UIController.Instance._handleUIManager._handleLoading.HandleFill(_curWallCracks.GetFillAmount(),2);
+                _curWallCracks.FillWallCrack(3);
+                UIController.Instance._handleUIManager._handleLoading.HandleFill(_curWallCracks.GetFillAmount(),3);
+                _animator.CrossFade("Use", 0);
             }
         }
     }
@@ -92,6 +93,7 @@ public class Plasteringtrowel : BaseTool
         {
             if(_curWallCracks != null)
             {
+                _animator.CrossFade("Idle", 0.25f);
                 _curWallCracks.SetCanFill(false);
                 _curWallCracks=null;
             }
@@ -106,5 +108,7 @@ public class Plasteringtrowel : BaseTool
         {
             _havePlaster=true;
         }
+
+        _animator.CrossFade("Idle", 0.25f);
     }
 }

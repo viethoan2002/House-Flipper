@@ -23,7 +23,19 @@ public class PlacementSystem : MonoBehaviour
         {
             lastPosition = hitBox.point;
             if(hitBox.transform.GetComponent<GroundCtrl>() != null)
-                hitBox.transform.GetComponent<GroundCtrl>().UpdateCellPos(hitBox.point);
+            {
+                if (hitBox.transform.gameObject.layer == LayerMask.NameToLayer("Floor"))
+                {
+                    hitBox.transform.GetComponent<GroundCtrl>().UpdateCellPos(hitBox.point,true);
+                }
+                else
+                {
+                    hitBox.transform.GetComponent<GroundCtrl>().UpdateCellPos(hitBox.point, false);
+                }
+
+                //Debug.Log(hitBox.transform.name);
+            }
+
         }
     }
 }

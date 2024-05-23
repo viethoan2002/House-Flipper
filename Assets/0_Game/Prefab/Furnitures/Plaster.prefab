@@ -130,8 +130,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.7, z: 0.75}
-  m_Center: {x: 0, y: 0.35, z: 0}
+  m_Size: {x: 0.75, y: 0.6819993, z: 0.75}
+  m_Center: {x: 0, y: 0.35900033, z: 0}
 --- !u!54 &574113549619873491
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -179,4 +179,13 @@ MonoBehaviour:
   _duration: 0.25
   _layerReplace:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 8192
+  _originPosition: {x: 0, y: 0, z: 0}
+  _count: 0
+  _canPlace: 0
+  _meshRenderer: {fileID: 574113548767299526}
+  _materialGreen: {fileID: 2100000, guid: 143e0a9600b18374ebff983e73503ffa, type: 2}
+  _materialRed: {fileID: 2100000, guid: a4eb0d415b7a3434b95895cedb163cbc, type: 2}
+  _materialOrigin: []
+  _placeType: 0
+  _isPlay: 0

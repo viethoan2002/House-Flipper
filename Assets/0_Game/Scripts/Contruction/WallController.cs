@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WallController : MonoBehaviour
 {
-    [SerializeField] private Wall_Bonus _right, _left;
     [SerializeField] private Outline outline;
 
     [Space(30)]

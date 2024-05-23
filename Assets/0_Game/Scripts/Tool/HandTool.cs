@@ -45,9 +45,13 @@ public class HandTool : BaseTool
     {
         if (_isReplace)
         {
-            _curPlace.EnableCollision(false);
+            if (_curPlace.CanPlace())
+            {
+                _curPlace.EnableCollision(false);
+                _curPlace.SetMaterialOrigin();
 
-            ClearObjectRepalce();
+                ClearObjectRepalce();
+            }
         }
         else
         {
@@ -92,6 +96,7 @@ public class HandTool : BaseTool
         _curPlace = null;
         _curPoint = Vector3.zero;
         _fixObject = false;
+
         PlayerController.instance._playerInteract.SetLayerTarget(GetLayerTarget());
     }
 
@@ -101,6 +106,7 @@ public class HandTool : BaseTool
 
         _isReplace = true;
         _curPlace.SetOrigin();
+        _curPlace.SetMaterialGreen();
         _curPlace.EnableCollision(true);
 
         UIController.Instance._toolUIManager.HideUI();
@@ -129,7 +135,7 @@ public class HandTool : BaseTool
         if(_curPlace != null)
         {
 
-           _curPlace.Replace(_curPoint);
+           _curPlace.Replace(_curPoint,_contruction);
         }
     }
 
@@ -167,6 +173,8 @@ public class HandTool : BaseTool
 
     private void Revert()
     {
+        _curPlace.RevertPlace();
+
         ClearObjectRepalce();
     }
     #endregion

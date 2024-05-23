@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -12,8 +12,18 @@ public class Furnitures_Place : MonoBehaviour
     [SerializeField]
     private LayerMask _layerReplace;
 
-    private Vector3 _originPosition;
+    [SerializeField] private Vector3 _originPosition;
+    [SerializeField] private int _count = 0;
     private Quaternion _originRotate;
+
+    [SerializeField] private bool _canPlace;
+    [SerializeField] private MeshRenderer _meshRenderer;
+    [SerializeField] private Material _materialGreen;
+    [SerializeField] private Material _materialRed;
+    [SerializeField] private List<Material> _materialOrigin=new List<Material>();
+
+    [SerializeField] private Place_Type _placeType;
+    [SerializeField] private bool _isPlay;
 
     private void Awake()
     {
@@ -24,6 +34,13 @@ public class Furnitures_Place : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _col = GetComponent<Collider>();
+        if (_meshRenderer == null)
+            return;
+
+        for(int i=0;i<_meshRenderer.materials.Length;i++)
+        {
+            _materialOrigin.Add(_meshRenderer.materials[i]);
+        }
     }
 
     public LayerMask GetLayerReplace()
@@ -31,13 +48,23 @@ public class Furnitures_Place : MonoBehaviour
         return _layerReplace;
     }
 
-    public void Replace(Vector3 _pos)
+    public void Replace(Vector3 _pos,GameObject _obj)
     {
-        //Vector3 _direction = _pos - transform.position;
-        //_direction = new Vector3(_direction.x, transform.position.y, _direction.z);
-        //_rigidbody.velocity = _direction * (_direction.magnitude / _duration * Time.deltaTime);
-        //transform.DOMove(_pos, 0.25f);
-        transform.position = _pos;
+        _isPlay = true;
+
+        if (_placeType == Place_Type.onWall)
+        {
+            float _angle = Vector3.Angle(_obj.transform.forward, Vector3.forward);
+            if (_obj.transform.position.x > transform.position.x)
+            {
+                _angle = -_angle;
+            }
+
+
+            transform.DORotate(new Vector3(0, _angle, 0), 0.25f);
+        }
+
+        transform.DOMove(_pos, 0.25f);
     }
 
     public void EnableCollision(bool _enable)
@@ -49,6 +76,16 @@ public class Furnitures_Place : MonoBehaviour
     {
         _originPosition=transform.position;
         _originRotate=transform.rotation;
+
+    }
+
+    public void RevertPlace()
+    {
+        transform.DOKill();
+        transform.position=_originPosition;
+        transform.rotation=_originRotate;
+
+        SetMaterialOrigin();
     }
 
     private bool _isRotate = false;
@@ -67,11 +104,66 @@ public class Furnitures_Place : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public bool CanPlace()
     {
-        if (collision.transform.tag == "")
-        {
+        return _canPlace;
+    }
 
+    public void SetMaterialGreen()
+    {
+        Material[] _newMar = _meshRenderer.materials;
+        for (int i = 0; i < _newMar.Length; i++)
+        {
+            _newMar[i] = _materialGreen;
+        }
+
+        _meshRenderer.materials = _newMar;
+    }
+
+    public void SetMaterialOrigin()
+    {
+        Material[] _newMar = _meshRenderer.materials;
+        for (int i = 0; i < _newMar.Length; i++)
+        {
+            _newMar[i] = _materialOrigin[i];
+        }
+
+        _meshRenderer.materials = _newMar;
+        _isPlay = false;
+    }
+
+    public void SetMaterialRed()
+    {
+        Material[] _newMar = _meshRenderer.materials;
+
+        for (int i = 0; i < _newMar.Length; i++)
+        {
+            _newMar[i] = _materialRed;
+        }
+
+        _meshRenderer.materials = _newMar;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!_isPlay)
+            return;
+
+        _count++;
+        _canPlace = false;
+        SetMaterialRed();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!_isPlay)
+            return;
+
+        _count--;
+        if(_count == 0)
+        {
+            _canPlace = true;
+            SetMaterialGreen();
         }
     }
 

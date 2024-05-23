@@ -53,8 +53,7 @@ public class TrowelTool : BaseTool
         if (_newWallSlot != _curWallSlot)
         {
             _curWallSlot = _newWallSlot;
-
-            if (_curWallSlot.transform.position.y < PlayerController.instance.transform.position.y)
+            if (_curWallSlot.GetIsFloor())
             {
                 _curPreview = _downPreview;
             }

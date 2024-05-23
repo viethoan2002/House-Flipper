@@ -29,7 +29,7 @@ public class MopTool : BaseTool
 
     private void MoveDown()
     {
-        _animator.CrossFade("Idle", 0.5f);
+        _animator.CrossFade("Idle", 0f);
 
         transform.DOLocalMove(new Vector3(0, 0, 0), .5f);
     }

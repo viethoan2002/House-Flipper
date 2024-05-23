@@ -33,6 +33,7 @@ public class TargetShopBtn : MonoBehaviour
     public void TargetShop()
     {
         UIController.Instance._shopManager.gameObject.SetActive(true);
+        UIController.Instance._shopManager._shopContentManager.SetType(2);
 
         UIController.Instance._shopManager._MENU.SetActive(false);
         UIController.Instance._shopManager._ShopContent.SetActive(true);
