@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f35c5aa8ced34428fb67bf8bd998c2, type: 3}
+  m_Name: Beds_03
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 21300000, guid: 1be40f2b09e2dc74c95a79ea3642c63f, type: 3}
+  _price: 1400
+  _name: Bed Three
+  _isLock: 0
+  _prefObj: {fileID: 9215353719535841787, guid: f3816c015b041ee4dab41319ef80622a, type: 3}
+  _type: 0

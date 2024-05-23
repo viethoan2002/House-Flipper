@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: FurnituresData
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: 094d837b5391fba4c9be16819909fa5d, type: 2}
-  - {fileID: 11400000, guid: 910d8783110f8d2478aa27efeae2ee78, type: 2}
+  - {fileID: 11400000, guid: 93d9df9ab60534c40b208ba465f098f8, type: 2}
+  - {fileID: 11400000, guid: d1477e70e437873449422066c742f105, type: 2}
+  - {fileID: 11400000, guid: 46bb446b911f9a04b8bb5cb04813a1e3, type: 2}
+  - {fileID: 11400000, guid: c410106fccb4ad94294bb5d3c37d4898, type: 2}
+  - {fileID: 11400000, guid: 3cecfd41cd1cfd44485d7650ad814793, type: 2}
+  - {fileID: 11400000, guid: d7978b94fd47c9b4fb9b6e0bb4e26916, type: 2}
+  - {fileID: 11400000, guid: 8d316338e78228a4f80c4bc235d22a38, type: 2}
+  - {fileID: 11400000, guid: 6ce68e6b25d06fb4391a7112deb5e4e3, type: 2}

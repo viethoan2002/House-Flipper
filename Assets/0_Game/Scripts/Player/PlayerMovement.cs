@@ -83,19 +83,19 @@ public class PlayerMovement : MonoBehaviour
             return;
 
 
-        //_horizontal = Input.GetAxis("Horizontal");
-        //_vertical = Input.GetAxis("Vertical");
+        _horizontal = Input.GetAxis("Horizontal");
+        _vertical = Input.GetAxis("Vertical");
 
-        if (joystick.Direction != Vector2.zero)
-        {
-            _horizontal = joystick.Horizontal;
-            _vertical = joystick.Vertical;
-        }
-        else
-        {
-            _horizontal = 0;
-            _vertical = 0;
-        }
+        //if (joystick.Direction != Vector2.zero)
+        //{
+        //    _horizontal = joystick.Horizontal;
+        //    _vertical = joystick.Vertical;
+        //}
+        //else
+        //{
+        //    _horizontal = 0;
+        //    _vertical = 0;
+        //}
 
         Vector3 move = transform.right * _horizontal + transform.forward * _vertical;
 

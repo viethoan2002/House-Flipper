@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f3c786480b06d41954994b2a79fcae, type: 3}
   m_Name: LightsData
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 11400000, guid: 34ca956575eddc54b82767f5fb17166c, type: 2}
+  - {fileID: 11400000, guid: 759d6d415cafdc145ac5bfeb8b04cdf9, type: 2}
+  - {fileID: 11400000, guid: 738ed960fab92e74faf09659d48f03df, type: 2}
+  - {fileID: 11400000, guid: 9e2e68f1051bbee469d80295fe38eb37, type: 2}

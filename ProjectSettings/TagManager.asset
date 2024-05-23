@@ -17,10 +17,10 @@ TagManager:
   - Wall
   - Wall_Slot
   - Wall_Preview
-  - Wall_Bonus
+  - Wall_Slide
   - 
-  - 
-  - 
+  - Floor
+  - Ceiling
   - 
   - CellPos
   - Dirt

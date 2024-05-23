@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f35c5aa8ced34428fb67bf8bd998c2, type: 3}
+  m_Name: Cabinet_2
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 21300000, guid: 2797cdc5e3da72142807ccb0da2a92d8, type: 3}
+  _price: 750
+  _name: Cabinet Two
+  _isLock: 0
+  _prefObj: {fileID: 2063800890035361613, guid: 4e1bf7446ea587c448dbeec49a8829ae, type: 3}
+  _type: 3
