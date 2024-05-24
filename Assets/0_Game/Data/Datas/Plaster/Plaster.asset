@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fba46c0b058ccb47abd6c6522efe81d, type: 3}
   m_Name: Plaster
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 029b14df5b2f1fd44895d3d921c0d3be, type: 3}
   _price: 300
   _name: Gladys
   _isLock: 0
-  _prefObj: {fileID: 574113549619873494, guid: 8022fe33b0aa20b41877f1cdc6c2ce2e, type: 3}
+  _prefObj: {fileID: 6183770481199341762, guid: 8022fe33b0aa20b41877f1cdc6c2ce2e, type: 3}
   _texture: {fileID: 0}
   _type: 2
+  _material: {fileID: 0}

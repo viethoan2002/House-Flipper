@@ -24,6 +24,7 @@ public class Furnitures_Place : MonoBehaviour
 
     [SerializeField] private Place_Type _placeType;
     [SerializeField] private bool _isPlay;
+    [SerializeField] private bool _isOldFur;
 
     private void Awake()
     {
@@ -111,6 +112,7 @@ public class Furnitures_Place : MonoBehaviour
 
     public void SetMaterialGreen()
     {
+        _canPlace = true;
         Material[] _newMar = _meshRenderer.materials;
         for (int i = 0; i < _newMar.Length; i++)
         {
@@ -134,6 +136,7 @@ public class Furnitures_Place : MonoBehaviour
 
     public void SetMaterialRed()
     {
+        _canPlace = false;
         Material[] _newMar = _meshRenderer.materials;
 
         for (int i = 0; i < _newMar.Length; i++)
@@ -144,27 +147,45 @@ public class Furnitures_Place : MonoBehaviour
         _meshRenderer.materials = _newMar;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!_isPlay)
-            return;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (!_isPlay)
+    //        return;
 
-        _count++;
-        _canPlace = false;
+    //    _count++;
+    //    _canPlace = false;
+    //    SetMaterialRed();
+    //}
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(!_isPlay) return;
+
         SetMaterialRed();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!_isPlay)
-            return;
+        //if (!_isPlay)
+        //    return;
 
-        _count--;
-        if(_count == 0)
-        {
-            _canPlace = true;
-            SetMaterialGreen();
-        }
+        //_count--;
+        //if(_count == 0)
+        //{
+        if(!_isPlay) return;
+
+        SetMaterialGreen();
+        //}
+    }
+
+    public bool IsOldFur()
+    {
+        return _isOldFur;
+    }
+
+    public void SetIsOldFur(bool _en)
+    {
+        _isOldFur = _en;
     }
 
     private void Reset()

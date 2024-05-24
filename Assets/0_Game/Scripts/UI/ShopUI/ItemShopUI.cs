@@ -32,6 +32,7 @@ public class ItemShopUI : MonoBehaviour
         _nameTxt.text = _item._name;
         _typeTxt.text = _item.GetTypeString();
         _icon.sprite = _item._icon;
+        _icon.SetNativeSize();
 
         if (!_curItem._isLock)
         {

@@ -9,6 +9,7 @@ public class MopTool : BaseTool
 
     public override void UseTool()
     {
+        base.UseTool();
         if (_curDirt == null)
             return;
 
@@ -49,6 +50,15 @@ public class MopTool : BaseTool
         var _dirt=_interactObj.GetComponent<DirtController>();
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
 
+        if(_dirt != null )
+        {
+            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start cleaning");
+        }
+        else
+        {
+            UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+        }
+
         if (_dirt == _curDirt)
             return;
 
@@ -60,6 +70,7 @@ public class MopTool : BaseTool
     {
         base.ClearObjectInteract();
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+        UIController.Instance._handleUIManager._handleNotification.CloseNoti();
 
         if (_curDirt != null && _curDirt.GetCleaning())
         {

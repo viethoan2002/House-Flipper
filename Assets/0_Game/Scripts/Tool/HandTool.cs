@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HandTool : BaseTool
@@ -43,12 +44,19 @@ public class HandTool : BaseTool
     #region Base Tool
     public override void UseTool()
     {
+        base.UseTool();
+
         if (_isReplace)
         {
             if (_curPlace.CanPlace())
             {
                 _curPlace.EnableCollision(false);
                 _curPlace.SetMaterialOrigin();
+                if (!_curPlace.IsOldFur())
+                {
+                    _curPlace.SetIsOldFur(true);
+                    PlayerController.instance._playerTools.ChangeOldTool();
+                }
 
                 ClearObjectRepalce();
             }
@@ -64,23 +72,46 @@ public class HandTool : BaseTool
 
     public override void AddInteractObject(GameObject _interactObj)
     {
-        if (_isReplace)
+        base.AddInteractObject(_interactObj);
+
+        if (_interactObj.layer == LayerMask.NameToLayer("Door"))
+        {
+            _curDoor = _interactObj.GetComponent<DoorController>();
+            if(_curDoor._isOpen)
+                UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to close");
+            else
+                UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to open");
             return;
+        }
+
+        if (_isReplace)
+        {
+            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to place the item");
+            return;
+        }
 
         //base.AddInteractObject(_interactObj);
 
         var _place = _interactObj.GetComponent<Furnitures_Place>();
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
 
+        if(_place != null)
+            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start moving the item");
+        else
+            UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+
         if (_place == _curPlace)
             return;
 
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
         _curPlace = _place;
+
     }
 
     public override void ClearObjectInteract()
     {
+        base.ClearObjectInteract();
+
         if (_fixObject || _isReplace)
             return;
 
@@ -89,6 +120,8 @@ public class HandTool : BaseTool
 
     public void ClearObjectRepalce()
     {
+        base.ClearObjectInteract();
+
         UIController.Instance._replaceUIManager.HideUI();
         UIController.Instance._toolUIManager.ShowUI();
 
@@ -173,7 +206,10 @@ public class HandTool : BaseTool
 
     private void Revert()
     {
-        _curPlace.RevertPlace();
+        if(_curPlace.IsOldFur())
+            _curPlace.RevertPlace();
+        else
+            Destroy(_curPlace.gameObject);
 
         ClearObjectRepalce();
     }

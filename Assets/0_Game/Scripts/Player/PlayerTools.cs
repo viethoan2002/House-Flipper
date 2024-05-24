@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerTools : MonoBehaviour
 {
     [SerializeField] private PlayerController _playerCtrl;
+    [SerializeField] private int _beforIndex,_curIndex;
     [SerializeField] private BaseTool _curTool;
     [SerializeField] private List<BaseTool> toolList = new();
     [SerializeField] private BaseItem _curItem;
@@ -50,12 +52,23 @@ public class PlayerTools : MonoBehaviour
         if (_curTool == toolList[_index])
             return;
 
+        _beforIndex = _curIndex;
+        _curIndex = _index;
+
         _curTool.HideObject();
         _curTool.ClearObjectInteract();
 
         _curTool = toolList[_index];
         _curTool.ShowObject();
         _playerCtrl._playerInteract.SetLayerTarget(_curTool.GetLayerTarget());
+
+        UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+        UIController.Instance._handleUIManager._handleNotification.CloseWaring();
+    }
+
+    public void ChangeOldTool()
+    {
+        ChangeTool(_beforIndex);
     }
 
     public void AddObjectInteract(GameObject _obj)
@@ -68,6 +81,11 @@ public class PlayerTools : MonoBehaviour
         _curTool.AddPointRay(_point, _obj);
     }
 
+    public void AddTriangleIndex(int _index, GameObject _interactObj)
+    {
+        _curTool.AddTriangleIndex(_index,_interactObj);
+    }
+
     public void AddBaseItem(BaseItem _item)
     {
         if(_item is ItemWallFinishes)
@@ -78,10 +96,6 @@ public class PlayerTools : MonoBehaviour
             {
                 ChangeTool(4);
                 _curTool.AddItem(_item);
-            }
-            else if (_tiles._type == WallFinishes.Paints)
-            {
-
             }
             else
             {

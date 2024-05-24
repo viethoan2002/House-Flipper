@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fba46c0b058ccb47abd6c6522efe81d, type: 3}
   m_Name: ItemPaints 1
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 5341e752e75f5714dad53212c8129011, type: 3}
   _price: 20
-  _name: Strawberry
+  _name: Paint One
   _isLock: 0
+  _prefObj: {fileID: 6382657482295125234, guid: 267030c6518b977448f62947aa0ebb00, type: 3}
   _texture: {fileID: 0}
   _type: 1
+  _material: {fileID: -876546973899608171, guid: ca9a241855972ab439ca0df73ba2ae07, type: 3}

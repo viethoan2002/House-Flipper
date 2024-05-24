@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fba46c0b058ccb47abd6c6522efe81d, type: 3}
   m_Name: ItemPaints 2
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 5b2f052ce97e97e4faedaf0199b38e75, type: 3}
   _price: 30
-  _name: Canteen
+  _name: Paint Two
   _isLock: 0
+  _prefObj: {fileID: 7051925147536746357, guid: 59ec6fd0fc03a0348bc85f1ddd1dbb84, type: 3}
   _texture: {fileID: 0}
   _type: 1
+  _material: {fileID: -876546973899608171, guid: 67615c13687d51c478fd4d0890da3155, type: 3}

@@ -43,29 +43,31 @@ public class Wall_Preview : MonoBehaviour
         if (_en)
         {
             _renderer.material = _marCanBuid;
+            UIController.Instance._handleUIManager._handleNotification.CloseWaring();
+            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start building");
         }
         else
         {
             _renderer.material = _marCanNotBuild;
+            UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+            UIController.Instance._handleUIManager._handleNotification.SetWaring("Cannot build here");
         }
-
-        UIController.Instance._handleUIManager._handleNotification.ActiveNotifiTap(_en);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         _canBuild = false;
         UpDatePreviewByMaterial(_canBuild);
-        _amountCollision++;
+        //_amountCollision++;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        _amountCollision--;
-        if(_amountCollision == 0)
-        {
+        //_amountCollision--;
+        //if(_amountCollision == 0)
+        //{
             _canBuild = true;
             UpDatePreviewByMaterial(_canBuild);
-        }
+        //}
     }
 }

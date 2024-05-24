@@ -18,10 +18,10 @@ TagManager:
   - Wall_Slot
   - Wall_Preview
   - Wall_Slide
-  - 
+  - Wall_Crack
   - Floor
   - Ceiling
-  - 
+  - Wall_Paint
   - CellPos
   - Dirt
   - Furitures

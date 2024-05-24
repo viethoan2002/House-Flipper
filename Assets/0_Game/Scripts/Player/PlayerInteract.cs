@@ -38,6 +38,7 @@ public class PlayerInteract : MonoBehaviour
         {
             _playerCtrl._playerTools.AddObjectInteract(hitBox.transform.gameObject);
             _playerCtrl._playerTools.AddPointRay(hitBox.point,hitBox.transform.gameObject);
+            _playerCtrl._playerTools.AddTriangleIndex(hitBox.triangleIndex,hitBox.transform.gameObject);
         }
         else
             _playerCtrl._playerTools.ClearObjectInteract();

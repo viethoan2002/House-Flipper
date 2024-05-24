@@ -26,6 +26,16 @@ public class TiletrowelTool : BaseTool
         if (_isBrick)
             return;
 
+        if (_curItemTiles == null)
+        {
+            UIController.Instance._handleUIManager._handleNotification.SetWaring("I need to get some tiles");
+        }
+        else
+        {
+            UIController.Instance._handleUIManager._handleNotification.CloseWaring();
+            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start tiling");
+        }
+
         base.AddPointRay(_point, _contruction);
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
 

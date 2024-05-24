@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fba46c0b058ccb47abd6c6522efe81d, type: 3}
   m_Name: ItemPaints 4
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 3edb1706c5414df43bd6cf992781d03c, type: 3}
   _price: 50
-  _name: Miky
+  _name: Paint Four
   _isLock: 1
+  _prefObj: {fileID: 191601658768073151, guid: 23f8fa434d2985546b67ad16eb9a929c, type: 3}
   _texture: {fileID: 0}
   _type: 1
+  _material: {fileID: -876546973899608171, guid: 88e85f1f509c18a468ef815a639ee39c, type: 3}

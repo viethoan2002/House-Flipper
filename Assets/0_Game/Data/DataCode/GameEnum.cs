@@ -29,7 +29,8 @@ public enum Menu_Type
 
 public enum Backyard
 {
-
+    Kitchen,
+    Bathroom
 }
 public enum Lights
 {

@@ -12,6 +12,8 @@ public class ScannerTool : BaseTool
 
     public override void UseTool()
     {
+        base.UseTool();
+
         if (_curPrice == null || !_curPrice.GetCanSell())
             return;
 
@@ -25,6 +27,15 @@ public class ScannerTool : BaseTool
         var _fur = _interactObj.GetComponent<Furnitures_Price>();
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
 
+        if(_fur != null )
+        {
+            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to sell the item");
+        }
+        else
+        {
+            UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+        }
+
         if (_fur == _curPrice)
             return;
 
@@ -36,6 +47,7 @@ public class ScannerTool : BaseTool
     public override void ClearObjectInteract()
     {
         base.ClearObjectInteract();
+        UIController.Instance._handleUIManager._handleNotification.CloseNoti();
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
         _scannerCanvas.ClearPaymentTxt();
 

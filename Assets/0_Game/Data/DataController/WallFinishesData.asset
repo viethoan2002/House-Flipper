@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: WallFinishesData
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: 0e857d7a590d1c142af62ad11a8a0cf0, type: 2}
   - {fileID: 11400000, guid: 7b6353414016eae4ba4c430a03fbf9a2, type: 2}
   - {fileID: 11400000, guid: 020914dbcc7af0a47b684121d8656a8d, type: 2}
   - {fileID: 11400000, guid: 8ce57fc01f5646d4ab50ec7ec505e43c, type: 2}

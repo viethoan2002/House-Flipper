@@ -1,18 +1,35 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public bool _isOpen;
+    private bool _isMove;
+    
+    public void MoveDoor()
     {
-        
-    }
+        if (_isMove)
+            return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _isOpen = !_isOpen;
+
+        if (_isOpen)
+        {
+            _isMove = true;
+            transform.DORotate(new Vector3(0, -90, 0), 1f).OnComplete(() =>
+            {
+                _isMove=false;
+            });
+        }
+        else
+        {
+            _isMove = true;
+            transform.DORotate(new Vector3(0, 180, 0), 1f).OnComplete(() =>
+            {
+                _isMove = false;
+            });
+        }
     }
 }

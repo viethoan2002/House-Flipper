@@ -27,6 +27,7 @@ public class TrowelTool : BaseTool
 
     public override void UseTool()
     {
+        base.UseTool();
         if (_isBuild)
             return;
 
@@ -44,6 +45,7 @@ public class TrowelTool : BaseTool
 
     public override void AddInteractObject(GameObject _interactObj)
     {
+        base.UseTool();
         if (_isBuild)
             return;
 
@@ -80,6 +82,7 @@ public class TrowelTool : BaseTool
 
     public override void ClearObjectInteract()
     {
+        base.ClearObjectInteract();
         if (_isBuild)
             return;
 

@@ -8,6 +8,7 @@ public class BaseTool : MonoBehaviour
     [SerializeField] public Animator _animator;
 
     [SerializeField] private GameObject _model;
+    [SerializeField] public DoorController _curDoor;
     private Vector3 _originModelPos;
 
     [Space(10)]
@@ -58,7 +59,11 @@ public class BaseTool : MonoBehaviour
 
     public virtual void UseTool()
     {
-
+        if(_curDoor != null)
+        {
+            _curDoor.MoveDoor();
+            return;
+        }
     }
 
     public virtual void CompeleteUse()
@@ -86,14 +91,21 @@ public class BaseTool : MonoBehaviour
 
     public virtual void AddInteractObject(GameObject _interactObj)
     {
-        UIController.Instance._handleUIManager._handleNotification.ActiveNotifiTap(true);
+
     }
 
     public virtual void AddPointRay(Vector3 _point, GameObject _contruction) { }
 
+    public virtual void AddTriangleIndex(int _index,GameObject _interactObj) {}
+
     public virtual void ClearObjectInteract()
     {
-        UIController.Instance._handleUIManager._handleNotification.ActiveNotifiTap(false);
+        if(_curDoor != null)
+        {
+            _curDoor = null;
+            UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+            return;
+        }
     }
 
     public virtual void AddItem(BaseItem _item)

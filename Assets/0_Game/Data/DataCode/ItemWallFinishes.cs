@@ -7,6 +7,7 @@ public class ItemWallFinishes : BaseItem
 {
     public Sprite _texture;
     public WallFinishes _type;
+    public Material _material;
 
     public override string GetTypeString()
     {

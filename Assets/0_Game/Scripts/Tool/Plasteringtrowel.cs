@@ -41,6 +41,7 @@ public class Plasteringtrowel : BaseTool
         if (!_havePlaster)
         {
             var _furPrice = _interactObj.GetComponent<Furnitures_Price>();
+
             if (_furPrice == _curFurniture)
             {
                 UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
@@ -59,6 +60,8 @@ public class Plasteringtrowel : BaseTool
                 if (_item._type == WallFinishes.Plaster)
                 {
                     _canFillPlaster = true;
+                    UIController.Instance._handleUIManager._handleNotification.CloseWaring();
+                    UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to get some plaster");
                 }
             }
         }
@@ -75,6 +78,12 @@ public class Plasteringtrowel : BaseTool
                 UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
 
                 _curWallCracks = _wallCrack;
+
+            if(_curWallCracks.GetFillAmount() < 1)
+            {
+                UIController.Instance._handleUIManager._handleNotification.CloseWaring();
+                UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start plastrinng");
+            }
         }
     }
 
@@ -82,11 +91,13 @@ public class Plasteringtrowel : BaseTool
     {
         base.ClearObjectInteract();
         UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+        UIController.Instance._handleUIManager._handleNotification.CloseNoti();
 
         if (!_havePlaster)
         {
             _canFillPlaster=false;
             _curFurniture=null;
+            UIController.Instance._handleUIManager._handleNotification.SetWaring("I need some plaster");
             //_fillPlaster= UIController.Instance._handleUIManager._handleLoading.GetFillAmount();
         }
         else
