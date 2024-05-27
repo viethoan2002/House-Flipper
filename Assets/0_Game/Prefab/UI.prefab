@@ -4003,7 +4003,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c57a087622dea8d489c962fbde47a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _notifiTap: {fileID: 1193390098}
+  _iconTap: {fileID: 0}
+  _notiObj: {fileID: 0}
+  _waringObj: {fileID: 0}
+  _notiTxt: {fileID: 0}
+  _waringTxt: {fileID: 0}
+  _notiImg: {fileID: 0}
+  _waringImg: {fileID: 0}
 --- !u!1 &1560880463
 GameObject:
   m_ObjectHideFlags: 0

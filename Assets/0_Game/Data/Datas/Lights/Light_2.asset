@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32ec0f7c6b31df47b967f01046b95f4, type: 3}
   m_Name: Light_2
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _price: 0
-  _name: 
+  _icon: {fileID: 21300000, guid: bf7be74d1a563c942a9b30c0d802515c, type: 3}
+  _price: 350
+  _name: Light Two
   _isLock: 0
-  _prefObj: {fileID: 0}
+  _prefObj: {fileID: 6960348448961410514, guid: 75de6acb5127fe14289f867c69679e45, type: 3}
   _type: 2

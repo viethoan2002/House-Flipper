@@ -62,8 +62,8 @@ public class PlayerTools : MonoBehaviour
         _curTool.ShowObject();
         _playerCtrl._playerInteract.SetLayerTarget(_curTool.GetLayerTarget());
 
-        UIController.Instance._handleUIManager._handleNotification.CloseNoti();
-        UIController.Instance._handleUIManager._handleNotification.CloseWaring();
+        PopupController.instance._gameplayUI._handleUI._handleNotification.CloseNoti();
+        PopupController.instance._gameplayUI._handleUI._handleNotification.CloseWaring();
     }
 
     public void ChangeOldTool()
@@ -71,19 +71,9 @@ public class PlayerTools : MonoBehaviour
         ChangeTool(_beforIndex);
     }
 
-    public void AddObjectInteract(GameObject _obj)
+    public void AddObjectInteract(Vector3 _point,GameObject _obj,int _index,Vector3 _direction)
     {
-        _curTool.AddInteractObject(_obj);
-    }
-
-    public void AddPointRay(Vector3 _point,GameObject _obj)
-    {
-        _curTool.AddPointRay(_point, _obj);
-    }
-
-    public void AddTriangleIndex(int _index, GameObject _interactObj)
-    {
-        _curTool.AddTriangleIndex(_index,_interactObj);
+        _curTool.AddInteractObject(_point, _obj, _index, _direction);
     }
 
     public void AddBaseItem(BaseItem _item)

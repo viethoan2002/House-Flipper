@@ -14,7 +14,7 @@ public class MopTool : BaseTool
             return;
 
         _curDirt.SetCleaning(true);
-        UIController.Instance._handleUIManager._handleLoading.HandleFill(_curDirt.GetFillAmount(), 3);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(_curDirt.GetFillAmount(), 3);
         MoveUp();
     }
 
@@ -43,38 +43,38 @@ public class MopTool : BaseTool
         MoveDown();
     }
 
-    public override void AddInteractObject(GameObject _interactObj)
+    public override void AddInteractObject(Vector3 _point,GameObject _interactObj,int _index,Vector3 _direction)
     {
-        base.AddInteractObject(_interactObj);
+        base.AddInteractObject(_point,_interactObj,_index,_direction);
 
         var _dirt=_interactObj.GetComponent<DirtController>();
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
 
         if(_dirt != null )
         {
-            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start cleaning");
+            PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to start cleaning");
         }
         else
         {
-            UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+            PopupController.instance._gameplayUI._handleUI._handleNotification.CloseNoti();
         }
 
         if (_dirt == _curDirt)
             return;
 
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
         _curDirt = _dirt;
     }
 
     public override void ClearObjectInteract()
     {
         base.ClearObjectInteract();
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
-        UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
+        PopupController.instance._gameplayUI._handleUI._handleNotification.CloseNoti();
 
         if (_curDirt != null && _curDirt.GetCleaning())
         {
-            _curDirt.SetFillAmount(UIController.Instance._handleUIManager._handleLoading.GetFillAmount());
+            _curDirt.SetFillAmount(PopupController.instance._gameplayUI._handleUI._handleLoading.GetFillAmount());
             _curDirt.SetCleaning(false);
             _curDirt = null;
             MoveDown();

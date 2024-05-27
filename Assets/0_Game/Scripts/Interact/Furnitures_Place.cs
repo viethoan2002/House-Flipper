@@ -49,20 +49,26 @@ public class Furnitures_Place : MonoBehaviour
         return _layerReplace;
     }
 
-    public void Replace(Vector3 _pos,GameObject _obj)
+    public void Replace(Vector3 _pos,GameObject _obj,Vector3 _direction)
     {
         _isPlay = true;
 
         if (_placeType == Place_Type.onWall)
         {
-            float _angle = Vector3.Angle(_obj.transform.forward, Vector3.forward);
-            if (_obj.transform.position.x > transform.position.x)
-            {
-                _angle = -_angle;
-            }
+            //float _angle = Vector3.Angle(_obj.transform.forward, _direction);
+            //if (_obj.transform.position.x > transform.position.x)
+            //{
+            //    _angle = -_angle;
+            //}
 
 
-            transform.DORotate(new Vector3(0, _angle, 0), 0.25f);
+            //transform.DORotate(new Vector3(0, _angle, 0), 0.25f);
+
+            ////transform.forward = _direction;
+            Quaternion targetRotation = Quaternion.LookRotation(_direction);
+
+            // Gán rotation cho obj A
+            transform.DORotateQuaternion(targetRotation, 0.25f);
         }
 
         transform.DOMove(_pos, 0.25f);

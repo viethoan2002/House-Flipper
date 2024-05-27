@@ -32,12 +32,13 @@ public class TargetShopBtn : MonoBehaviour
 
     public void TargetShop()
     {
-        UIController.Instance._shopManager.gameObject.SetActive(true);
-        UIController.Instance._shopManager._shopContentManager.SetType(2);
+        PopupController.instance._shopUI.ShowImmediately(false, null);
+        PopupController.instance._shopUI.gameObject.SetActive(true);
+        PopupController.instance._shopUI._shopContentManager.SetType(2);
 
-        UIController.Instance._shopManager._MENU.SetActive(false);
-        UIController.Instance._shopManager._ShopContent.SetActive(true);
-        UIController.Instance._shopManager._sideBarManager.SetType(2);
-        UIController.Instance._shopManager._shopContentManager.SetContentByString(_type);
+        PopupController.instance._shopUI._MENU.SetActive(false);
+        PopupController.instance._shopUI._ShopContent.SetActive(true);
+        PopupController.instance._shopUI._sideBarManager.SetType(2);
+        PopupController.instance._shopUI._shopContentManager.SetContentByString(_type);
     }
 }

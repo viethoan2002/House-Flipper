@@ -39,18 +39,27 @@ public class TrowelTool : BaseTool
             _animator.CrossFade("Use", 0);
             _posBuild=_curWallSlot.transform.position;
             _angleBuild = _curWallSlot.transform.rotation;
-            UIController.Instance._handleUIManager._handleLoading.HandleFill(0, 3);
+            PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(0, 3);
         }
     }
 
-    public override void AddInteractObject(GameObject _interactObj)
+    public override void AddInteractObject(Vector3 _point, GameObject _interactObj, int _index, Vector3 _direction)
     {
-        base.UseTool();
         if (_isBuild)
             return;
 
+        if (_interactObj.layer == LayerMask.NameToLayer("Door"))
+        {
+            _curDoor = _interactObj.GetComponent<DoorController>();
+            if (_curDoor._isOpen)
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to close");
+            else
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to open");
+            return;
+        }
+
         var _newWallSlot = _interactObj.GetComponent<Wall_Slot>();
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
 
         if (_newWallSlot != _curWallSlot)
         {

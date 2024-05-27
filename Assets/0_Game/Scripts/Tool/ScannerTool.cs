@@ -17,29 +17,39 @@ public class ScannerTool : BaseTool
         if (_curPrice == null || !_curPrice.GetCanSell())
             return;
 
-        UIController.Instance._handleUIManager._handleLoading.HandleFill(0, 3);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(0, 3);
     }
 
-    public override void AddInteractObject(GameObject _interactObj)
+    public override void AddInteractObject(Vector3 _point, GameObject _interactObj, int _index, Vector3 _direction)
     {
-        base.AddInteractObject(_interactObj);
+        base.AddInteractObject(_point, _interactObj, _index, _direction);
+
+        if (_interactObj.layer == LayerMask.NameToLayer("Door"))
+        {
+            _curDoor = _interactObj.GetComponent<DoorController>();
+            if (_curDoor._isOpen)
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to close");
+            else
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to open");
+            return;
+        }
 
         var _fur = _interactObj.GetComponent<Furnitures_Price>();
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
 
         if(_fur != null )
         {
-            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to sell the item");
+            PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to sell the item");
         }
         else
         {
-            UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+            PopupController.instance._gameplayUI._handleUI._handleNotification.CloseNoti();
         }
 
         if (_fur == _curPrice)
             return;
 
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
         _curPrice = _fur;
         _scannerCanvas.SetPaymentTxt(_curPrice.GetPrice());
     }
@@ -47,8 +57,8 @@ public class ScannerTool : BaseTool
     public override void ClearObjectInteract()
     {
         base.ClearObjectInteract();
-        UIController.Instance._handleUIManager._handleNotification.CloseNoti();
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+        PopupController.instance._gameplayUI._handleUI._handleNotification.CloseNoti();
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
         _scannerCanvas.ClearPaymentTxt();
 
         if (_curPrice != null)

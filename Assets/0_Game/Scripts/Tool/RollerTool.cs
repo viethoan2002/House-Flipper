@@ -14,25 +14,92 @@ public class RollerTool : BaseTool
     [SerializeField] private int _curIndex;
     public override void UseTool()
     {
+        base.UseTool();
+
         if(_curFurniture!=null)
         {
             _fillRoller = true;
-            UIController.Instance._handleUIManager._handleLoading.HandleFill(0,2);
+            PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(0,2);
         }
         else
         {
             if( _havePaint && _curWall != null)
             {
                 _fillRoller=false;
-                UIController.Instance._handleUIManager._handleLoading.HandleFill(0, 3);
+                PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(0, 3);
                 _animator.CrossFade("Use", 0);
             }
         }
     }
 
-    public override void AddInteractObject(GameObject _interactObj)
+    public override void AddInteractObject(Vector3 _point, GameObject _interactObj, int _index, Vector3 _direction)
     {
-        base.AddInteractObject(_interactObj);
+        base.AddInteractObject(_point,_interactObj,_index,_direction);
+
+        if (_interactObj.layer == LayerMask.NameToLayer("Door"))
+        {
+            _curDoor = _interactObj.GetComponent<DoorController>();
+            if (_curDoor._isOpen)
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to close");
+            else
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to open");
+            return;
+        }
+
+        var _furPrice = _interactObj.GetComponent<Furnitures_Price>();
+
+        if (_furPrice != null)
+        {
+            if (_furPrice == _curFurniture)
+            {
+                PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
+                return;
+            }
+            else
+                PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
+
+
+            if (_furPrice.GetBaseItem() is ItemWallFinishes)
+            {
+                ItemWallFinishes _item = (ItemWallFinishes)_furPrice.GetBaseItem();
+
+                if (_item._type == WallFinishes.Paints)
+                {
+                    _curFurniture = _furPrice;
+                    PopupController.instance._gameplayUI._handleUI._handleNotification.CloseWaring();
+                    PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to get some paint");
+                }
+            }
+
+            _curWall = null;
+        }
+        else
+        {
+            if (_curMar == null)
+            {
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetWaring("I need some paint");
+            }
+            else
+            {
+                PopupController.instance._gameplayUI._handleUI._handleNotification.CloseWaring();
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to start painting");
+            }
+
+            var _newWall = _interactObj.GetComponent<WallController>();
+            if (_newWall == _curWall)
+            {
+                PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
+                return;
+            }
+            else
+                PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
+
+            _curWall = _newWall;
+            _curWall.EnableConvert(false);
+            _curIndex = _index;
+            _curFurniture = null;
+            _animator.CrossFade("Idle", 0);
+        }
     }
 
     public override void CompeleteUse()
@@ -58,11 +125,11 @@ public class RollerTool : BaseTool
     {
         base.ClearObjectInteract();
 
-        UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+        PopupController.instance._gameplayUI._handleUI._handleNotification.CloseNoti();
         if (_curMar == null)
-            UIController.Instance._handleUIManager._handleNotification.SetWaring("I need some paint");
+            PopupController.instance._gameplayUI._handleUI._handleNotification.SetWaring("I need some paint");
 
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
         if(_curFurniture != null )
         {
             _curFurniture = null;
@@ -74,66 +141,5 @@ public class RollerTool : BaseTool
         }
 
         _animator.CrossFade("Idle", 0);
-    }
-
-    public override void AddTriangleIndex(int _index, GameObject _interactObj)
-    {
-        base.AddInteractObject(_interactObj);
-
-        var _furPrice = _interactObj.GetComponent<Furnitures_Price>();
-
-        if (_furPrice != null)
-        {
-            if (_furPrice == _curFurniture)
-            {
-                UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
-                return;
-            }
-            else
-                UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
-
-
-            if (_furPrice.GetBaseItem() is ItemWallFinishes)
-            {
-                ItemWallFinishes _item = (ItemWallFinishes)_furPrice.GetBaseItem();
-
-                if (_item._type == WallFinishes.Paints)
-                {
-                    _curFurniture = _furPrice;
-                    UIController.Instance._handleUIManager._handleNotification.CloseWaring();
-                    UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to get some paint");
-                }
-            }
-
-            _curWall = null;
-        }
-        else
-        {
-            if (_curMar == null)
-            {
-                UIController.Instance._handleUIManager._handleNotification.SetWaring("I need some paint");
-            }
-            else
-            {
-                UIController.Instance._handleUIManager._handleNotification.CloseWaring();
-                UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start painting");
-            }
-
-            var _newWall = _interactObj.GetComponent<WallController>();
-            if (_newWall == _curWall)
-            {
-                UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
-                return;
-            }
-            else
-                UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
-
-            _curWall = _newWall;
-            _curWall.EnableConvert(false);
-            _curIndex = _index;
-            _curFurniture = null;
-            _animator.CrossFade("Idle", 0);
-        }
-   
     }
 }

@@ -12,7 +12,7 @@ public class HandleNotification : MonoBehaviour
     public void SetNoTi(string _txt)
     {
         _notiTxt.text = _txt;
-        _notiImg.rectTransform.sizeDelta = new Vector2(_txt.Length * 12 + 50, 40);
+        _notiImg.rectTransform.sizeDelta = new Vector2(_txt.Length * 12 + 70, 40);
         _notiObj.SetActive(true);
         _iconTap.SetActive(true);
     }

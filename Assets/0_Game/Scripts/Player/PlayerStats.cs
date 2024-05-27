@@ -73,8 +73,8 @@ public class PlayerStats : MonoBehaviour
 
     public void UpdateStatUI()
     {
-        UIController.Instance._playerStatUIManager.SetCointTxt(_coint);
-        UIController.Instance._playerStatUIManager.SetMoneyTxt(_money);
+        PopupController.instance._cointUI.SetCointTxt(_coint);
+        PopupController.instance._cointUI.SetMoneyTxt(_money);
     }
 
     private void Reset()

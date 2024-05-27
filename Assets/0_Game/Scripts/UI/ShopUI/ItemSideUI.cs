@@ -16,7 +16,7 @@ public class ItemSideUI : MonoBehaviour
 
     public void ActionClick()
     {
-        UIController.Instance._shopManager._shopContentManager.SetContentByString(_name.text);
+        PopupController.instance._shopUI._shopContentManager.SetContentByString(_name.text);
     }
 
     public void SetTyprByString(string _type)

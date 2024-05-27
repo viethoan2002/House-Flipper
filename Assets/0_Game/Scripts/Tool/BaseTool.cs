@@ -89,21 +89,21 @@ public class BaseTool : MonoBehaviour
         return targetLayer;
     }
 
-    public virtual void AddInteractObject(GameObject _interactObj)
+    public virtual void AddInteractObject(Vector3 _point,GameObject _interactObj,int _index,Vector3 _direction)
     {
 
     }
 
-    public virtual void AddPointRay(Vector3 _point, GameObject _contruction) { }
+    //public virtual void AddPointRay(Vector3 _point, GameObject _contruction) { }
 
-    public virtual void AddTriangleIndex(int _index,GameObject _interactObj) {}
+    //public virtual void AddTriangleIndex(int _index,GameObject _interactObj) {}
 
     public virtual void ClearObjectInteract()
     {
         if(_curDoor != null)
         {
             _curDoor = null;
-            UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+            PopupController.instance._gameplayUI._handleUI._handleNotification.CloseNoti();
             return;
         }
     }

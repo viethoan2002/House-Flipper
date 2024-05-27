@@ -18,7 +18,7 @@ public class DoorController : MonoBehaviour
         if (_isOpen)
         {
             _isMove = true;
-            transform.DORotate(new Vector3(0, -90, 0), 1f).OnComplete(() =>
+            transform.DORotate(new Vector3(0, transform.parent.eulerAngles.y - 90, 0), 1f).OnComplete(() =>
             {
                 _isMove=false;
             });
@@ -26,7 +26,7 @@ public class DoorController : MonoBehaviour
         else
         {
             _isMove = true;
-            transform.DORotate(new Vector3(0, 180, 0), 1f).OnComplete(() =>
+            transform.DORotate(new Vector3(0, transform.parent.eulerAngles.y, 0), 1f).OnComplete(() =>
             {
                 _isMove = false;
             });

@@ -15,11 +15,13 @@ public class Plasteringtrowel : BaseTool
 
     public override void UseTool()
     {
+        base.UseTool();
+
         if (!_havePlaster)
         {
             if (_canFillPlaster)
             {
-                UIController.Instance._handleUIManager._handleLoading.HandleFill(_fillPlaster, 3);
+                PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(_fillPlaster, 3);
             }
         }
         else
@@ -28,15 +30,25 @@ public class Plasteringtrowel : BaseTool
             {
                 _curWallCracks.SetCanFill(true);
                 _curWallCracks.FillWallCrack(3);
-                UIController.Instance._handleUIManager._handleLoading.HandleFill(_curWallCracks.GetFillAmount(),3);
+                PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(_curWallCracks.GetFillAmount(),3);
                 _animator.CrossFade("Use", 0);
             }
         }
     }
 
-    public override void AddInteractObject(GameObject _interactObj)
+    public override void AddInteractObject(Vector3 _point, GameObject _interactObj, int _index, Vector3 _direction)
     {
-        base.AddInteractObject(_interactObj);
+        base.AddInteractObject(_point,_interactObj,_index,_direction);
+
+        if (_interactObj.layer == LayerMask.NameToLayer("Door"))
+        {
+            _curDoor = _interactObj.GetComponent<DoorController>();
+            if (_curDoor._isOpen)
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to close");
+            else
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to open");
+            return;
+        }
 
         if (!_havePlaster)
         {
@@ -44,11 +56,11 @@ public class Plasteringtrowel : BaseTool
 
             if (_furPrice == _curFurniture)
             {
-                UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
+                PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
                 return;
             }
             else
-                UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+                PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
 
             if (_furPrice.GetBaseItem() is ItemWallFinishes)
             {
@@ -60,8 +72,8 @@ public class Plasteringtrowel : BaseTool
                 if (_item._type == WallFinishes.Plaster)
                 {
                     _canFillPlaster = true;
-                    UIController.Instance._handleUIManager._handleNotification.CloseWaring();
-                    UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to get some plaster");
+                    PopupController.instance._gameplayUI._handleUI._handleNotification.CloseWaring();
+                    PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to get some plaster");
                 }
             }
         }
@@ -71,18 +83,18 @@ public class Plasteringtrowel : BaseTool
 
             if (_wallCrack == _curWallCracks)
             {
-                UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
+                PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
                 return;
             }
             else
-                UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+                PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
 
                 _curWallCracks = _wallCrack;
 
             if(_curWallCracks.GetFillAmount() < 1)
             {
-                UIController.Instance._handleUIManager._handleNotification.CloseWaring();
-                UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start plastrinng");
+                PopupController.instance._gameplayUI._handleUI._handleNotification.CloseWaring();
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to start plastrinng");
             }
         }
     }
@@ -90,15 +102,15 @@ public class Plasteringtrowel : BaseTool
     public override void ClearObjectInteract()
     {
         base.ClearObjectInteract();
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
-        UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
+        PopupController.instance._gameplayUI._handleUI._handleNotification.CloseNoti();
 
         if (!_havePlaster)
         {
             _canFillPlaster=false;
             _curFurniture=null;
-            UIController.Instance._handleUIManager._handleNotification.SetWaring("I need some plaster");
-            //_fillPlaster= UIController.Instance._handleUIManager._handleLoading.GetFillAmount();
+            PopupController.instance._gameplayUI._handleUI._handleNotification.SetWaring("I need some plaster");
+            //_fillPlaster= PopupController.instance._gameplayUI._handleUI._handleLoading.GetFillAmount();
         }
         else
         {

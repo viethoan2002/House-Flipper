@@ -38,28 +38,27 @@ public class ToolUIManager : BaseUIManager
                 {
                     foreach (var _btn in toolBtns)
                     {
-                        _btn.MoveToLocal(_timeScale);
-                        _btn.Scale(Vector3.one, _timeScale);
+                        //_btn.MoveToLocal(_timeScale);
+                        //_btn.Scale(Vector3.one, _timeScale);
                     }
                 }
                 else
                 {
                     foreach (var _btn in toolBtns)
                     {
-                        _btn.MoveToTarget(originPos, _timeScale);
-
-                        if (_btn._targetButton != null)
-                        {
-                            _btn._targetButton.gameObject.SetActive(true);
-                        }
-
+                        //_btn.MoveToTarget(originPos, _timeScale);
                         if (_btn != btn)
                         {
-                            _btn.Scale(Vector3.zero, _timeScale);
+                            //_btn.Scale(Vector3.zero, _timeScale);
                         }
 
                         if(_btn._targetButton!=null)
-                            _btn._targetButton.gameObject.SetActive(false);
+                           _btn._targetButton.gameObject.SetActive(false);
+                    }
+
+                    if (btn._targetButton != null)
+                    {
+                        btn._targetButton.gameObject.SetActive(true);
                     }
                 }         
             });

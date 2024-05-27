@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f35c5aa8ced34428fb67bf8bd998c2, type: 3}
   m_Name: ItemChair 5
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _price: 0
-  _name: 
+  _icon: {fileID: 21300000, guid: bb22fc3278b65ae48b8938c7fb9c061d, type: 3}
+  _price: 400
+  _name: Chair Five
   _isLock: 0
-  _prefObj: {fileID: 0}
-  _type: 0
+  _prefObj: {fileID: 3637758856254336604, guid: 512179ea24175a64882d228d6531c340, type: 3}
+  _type: 1

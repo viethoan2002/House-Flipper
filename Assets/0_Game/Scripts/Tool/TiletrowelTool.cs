@@ -12,32 +12,45 @@ public class TiletrowelTool : BaseTool
 
     public override void UseTool()
     {
+        base.UseTool();
+
         if (_isBrick || _curFloorTiles == null || _curFloorTiles.CheckTiles(_curItemTiles))
             return;
 
-        UIController.Instance._handleUIManager._handleLoading.HandleFill(0, 0.5f);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(0, 0.5f);
         _animator.CrossFade("Use", 0);
         _isBrick = true;
         PlayerController.instance._playerStats.RemoveMoney(_curItemTiles._price);
     }
 
-    public override void AddPointRay(Vector3 _point, GameObject _contruction)
+    public override void AddInteractObject(Vector3 _point, GameObject _interactObj, int _index, Vector3 _direction)
     {
+        base.AddInteractObject(_point, _interactObj, _index, _direction);
+
+        if (_interactObj.layer == LayerMask.NameToLayer("Door"))
+        {
+            _curDoor = _interactObj.GetComponent<DoorController>();
+            if (_curDoor._isOpen)
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to close");
+            else
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to open");
+            return;
+        }
+
         if (_isBrick)
             return;
 
         if (_curItemTiles == null)
         {
-            UIController.Instance._handleUIManager._handleNotification.SetWaring("I need to get some tiles");
+            PopupController.instance._gameplayUI._handleUI._handleNotification.SetWaring("I need to get some tiles");
         }
         else
         {
-            UIController.Instance._handleUIManager._handleNotification.CloseWaring();
-            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start tiling");
+            PopupController.instance._gameplayUI._handleUI._handleNotification.CloseWaring();
+            PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to start tiling");
         }
 
-        base.AddPointRay(_point, _contruction);
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
 
         var _newTiles = FloorManager.instance.GetTilesFloor(_point);
         if (_point.y > PlayerController.instance.transform.position.y)

@@ -20,7 +20,7 @@ public class HandleLoading : MonoBehaviour
     {
         ActiveImage(true);
         StartCoroutine(Fill(_curValue, _timeFill));
-        UIController.Instance._handleUIManager._handleNotification.gameObject.SetActive(false);
+        PopupController.instance._gameplayUI._handleUI._handleNotification.gameObject.SetActive(false);
     }
 
     IEnumerator Fill(float _curValue,float _timeFill)
@@ -42,7 +42,7 @@ public class HandleLoading : MonoBehaviour
 
         ActiveImage(false);
 
-        UIController.Instance._handleUIManager._handleNotification.gameObject.SetActive(true);
+        PopupController.instance._gameplayUI._handleUI._handleNotification.gameObject.SetActive(true);
         if (elapsedTime > duration)
             _completeLoading?.Invoke(); 
     }

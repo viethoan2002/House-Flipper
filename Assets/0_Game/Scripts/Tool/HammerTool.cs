@@ -11,6 +11,7 @@ public class HammerTool : BaseTool
 
     public override void UseTool()
     {
+        base.UseTool();
         if (_isDestroying)
             return;
 
@@ -20,17 +21,26 @@ public class HammerTool : BaseTool
             _curWall.ActiveOutline(false);
 
             _animator.CrossFade("Use", 0);
-            UIController.Instance._handleUIManager._handleLoading.HandleFill(0, 3);
+            PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(0, 3);
         }
     }
 
-    public override void AddInteractObject(GameObject _interactObj)
+    public override void AddInteractObject(Vector3 _point, GameObject _interactObj, int _index, Vector3 _direction)
     {
-       
+        base.AddInteractObject(_point, _interactObj, _index, _direction);
+        if (_interactObj.layer == LayerMask.NameToLayer("Door"))
+        {
+            _curDoor = _interactObj.GetComponent<DoorController>();
+            if (_curDoor._isOpen)
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to close");
+            else
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to open");
+            return;
+        }
 
         var _newWall=_interactObj.GetComponent<WallController>();
 
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
 
         if (_curWall == _newWall)
             return;
@@ -38,9 +48,9 @@ public class HammerTool : BaseTool
         ClearObjectInteract();
 
         if (_curWall != null && _curWall.CanDestroy())
-            base.AddInteractObject(_interactObj);
+            base.AddInteractObject(_point,_interactObj,_index,_direction);
 
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
         _curWall = _newWall ;
         _curWall.ActiveOutline(true);
     }
@@ -57,7 +67,7 @@ public class HammerTool : BaseTool
         _isDestroying= false;
 
         _animator.CrossFade("Idle", 0.25f);
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
     }
 
     public override void CompeleteUse()

@@ -52,6 +52,7 @@ public class HandTool : BaseTool
             {
                 _curPlace.EnableCollision(false);
                 _curPlace.SetMaterialOrigin();
+                PlayerController.instance._playerInteract.SetLayerTarget(GetLayerTarget());
                 if (!_curPlace.IsOldFur())
                 {
                     _curPlace.SetIsOldFur(true);
@@ -66,46 +67,53 @@ public class HandTool : BaseTool
             if (_curPlace == null)
                 return;
 
-            UIController.Instance._handleUIManager._handleLoading.HandleFill(0, 3);
+            PopupController.instance._gameplayUI._handleUI._handleLoading.HandleFill(0, 3);
         }
     }
 
-    public override void AddInteractObject(GameObject _interactObj)
+    public override void AddInteractObject(Vector3 _point, GameObject _interactObj, int _index, Vector3 _direction)
     {
-        base.AddInteractObject(_interactObj);
+        base.AddInteractObject(_point,_interactObj, _index,_direction);
 
         if (_interactObj.layer == LayerMask.NameToLayer("Door"))
         {
             _curDoor = _interactObj.GetComponent<DoorController>();
             if(_curDoor._isOpen)
-                UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to close");
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to close");
             else
-                UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to open");
+                PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to open");
             return;
         }
 
         if (_isReplace)
         {
-            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to place the item");
-            return;
+            PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to place the item");
+            goto PlaceObj;
         }
 
-        //base.AddInteractObject(_interactObj);
-
         var _place = _interactObj.GetComponent<Furnitures_Place>();
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(true);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(true);
 
         if(_place != null)
-            UIController.Instance._handleUIManager._handleNotification.SetNoTi("Tap to start moving the item");
+            PopupController.instance._gameplayUI._handleUI._handleNotification.SetNoTi("Tap to start moving the item");
         else
-            UIController.Instance._handleUIManager._handleNotification.CloseNoti();
+            PopupController.instance._gameplayUI._handleUI._handleNotification.CloseNoti();
 
         if (_place == _curPlace)
             return;
 
-        UIController.Instance._handleUIManager._handleLoading.SetCanFill(false);
+        PopupController.instance._gameplayUI._handleUI._handleLoading.SetCanFill(false);
         _curPlace = _place;
+PlaceObj:
+        if (!_isReplace)
+            return;
 
+        _curPoint = _point;
+
+        if (_curPlace != null)
+        {
+            _curPlace.Replace(_curPoint, _interactObj,_direction);
+        }
     }
 
     public override void ClearObjectInteract()
@@ -122,15 +130,15 @@ public class HandTool : BaseTool
     {
         base.ClearObjectInteract();
 
-        UIController.Instance._replaceUIManager.HideUI();
-        UIController.Instance._toolUIManager.ShowUI();
+        PopupController.instance._gameplayUI._replaceUI.HideUI();
+        PopupController.instance._gameplayUI._toolUI.ShowUI();
 
         _isReplace = false;
         _curPlace = null;
         _curPoint = Vector3.zero;
         _fixObject = false;
 
-        PlayerController.instance._playerInteract.SetLayerTarget(GetLayerTarget());
+        //PlayerController.instance._playerInteract.SetLayerTarget(GetLayerTarget());
     }
 
     public override void CompeleteUse()
@@ -142,8 +150,8 @@ public class HandTool : BaseTool
         _curPlace.SetMaterialGreen();
         _curPlace.EnableCollision(true);
 
-        UIController.Instance._toolUIManager.HideUI();
-        UIController.Instance._replaceUIManager.ShowUI();
+        PopupController.instance._gameplayUI._toolUI.HideUI();
+        PopupController.instance._gameplayUI._replaceUI.ShowUI();
 
         PlayerController.instance._playerInteract.SetLayerTarget(_curPlace.GetLayerReplace());
     }
@@ -155,21 +163,6 @@ public class HandTool : BaseTool
         CompeleteUse();
 
         _fixObject = true;
-    }
-
-    public override void AddPointRay(Vector3 _point,GameObject _contruction)
-    {
-        if(!_isReplace) 
-            return;
-
-        base.AddPointRay(_point, _contruction);
-        _curPoint = _point;
-
-        if(_curPlace != null)
-        {
-
-           _curPlace.Replace(_curPoint,_contruction);
-        }
     }
 
     #endregion
@@ -211,6 +204,7 @@ public class HandTool : BaseTool
         else
             Destroy(_curPlace.gameObject);
 
+        PlayerController.instance._playerInteract.SetLayerTarget(GetLayerTarget());
         ClearObjectRepalce();
     }
     #endregion

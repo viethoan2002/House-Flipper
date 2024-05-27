@@ -22,6 +22,7 @@ public class BaseToolBtn : MonoBehaviour
     private void LoadComponent()
     {
         _button = GetComponent<Button>();
+        _localPos = gameObject.GetComponent<RectTransform>().localPosition;
     }
 
     public void AddListener(Action _action)

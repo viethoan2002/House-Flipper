@@ -36,9 +36,7 @@ public class PlayerInteract : MonoBehaviour
 #endif
         if (Physics.Raycast(_playerCtrl._camera.position, _playerCtrl._camera.forward, out var hitBox, raycastDistance, _layerTarget))
         {
-            _playerCtrl._playerTools.AddObjectInteract(hitBox.transform.gameObject);
-            _playerCtrl._playerTools.AddPointRay(hitBox.point,hitBox.transform.gameObject);
-            _playerCtrl._playerTools.AddTriangleIndex(hitBox.triangleIndex,hitBox.transform.gameObject);
+            _playerCtrl._playerTools.AddObjectInteract(hitBox.point,hitBox.transform.gameObject, hitBox.triangleIndex,hitBox.normal);
         }
         else
             _playerCtrl._playerTools.ClearObjectInteract();

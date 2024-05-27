@@ -22,7 +22,7 @@ public class ItemShopUI : MonoBehaviour
         {
             PlayerController.instance._playerTools.AddBaseItem(_curItem);
 
-            UIController.Instance._shopManager.CloseShop();
+            PopupController.instance._shopUI.HideImmediately(false, null);
         }
     }
 
